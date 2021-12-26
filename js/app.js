@@ -74,8 +74,8 @@ function creatLinks()
 	    const textOflink=section.dataset.nav;
 		
 		
-	   // The html link fo every section
-        liElement.innerHTML= `<a href="${section.id}" class="menu__link">${textOflink}</a>`;
+	   // The html link for every section
+        liElement.innerHTML= `<a class="menu__link">${textOflink}</a>`;
 	 
 	 
        // Call scrollSections function 
@@ -97,24 +97,43 @@ function creatLinks()
 
 function testActiveSection()
 {
-	
+	const links=document.querySelectorAll('a');
 	for (section of sections )
 	{
 		// Calculate the size of bounding rectangle for section
 		const size =Math.floor(section.getBoundingClientRect().top);
 		
         //  Test if section in viewport
-		if(size<150&&size >=-150)
+		if(size>=0&&size <=150)
 		{
-			// Add your-active-class
-			if(!section.classList.contains("your-active-class")){
+			// Add your-active-class to sections
+			if(!section.classList.contains("your-active-class"))
+			{
 			  section.classList.add('your-active-class');
 			  section.style.backgroundColor="rgb(0,150,0)";
 			  
-			}
+			  
+			  // Add your-active-class to  to highlight navbarMenu links
+			    for(const lin of links)
+			    {
+				  
+				  if(lin.textContent===section.dataset.nav)
+					  
+				  {
+				  lin.classList.add('your-active-class');
+				  }
+				  
+				  else
+				  {
+					  lin.classList.remove('your-active-class');
+					  
+				  }
+			  
+			   }
 			
-		}
-			else
+		   }
+		   
+		else
 			{
 				// Remove your-active-class
 				section.classList.remove('your-active-class');
@@ -123,6 +142,7 @@ function testActiveSection()
 		    }
 			
 		}
+	}
 }   
 
 
